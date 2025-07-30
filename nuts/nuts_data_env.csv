@@ -1,0 +1,10 @@
+region,sample,origin,energy,proteins,fats,carbohydrates,price
+B,1,FozzyGroup,453,9,25,51,73
+B,2,NoName,649,18,58,13,199
+B,3,NoName,568,19,43,26,95
+A,1,SantaVita,612,16,49,26,199
+A,2,SantaVita,696,20,62,13,214
+A,3,NoName,633,25,54,13,174
+C,1,NoName,540,18,34,18,89
+C,2,FozzyGroup,598,24,49,12,29
+C,3,FozzyGroup,473,13,28,42,65

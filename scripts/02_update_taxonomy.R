@@ -49,7 +49,7 @@ sh_abundance <- slice(sh_abundance, -1)
 
 # Convert to long format and compute richness & read depth
 sample_metrics <- sh_abundance %>%
-  pivot_longer(-scientificName, names_to = "sample", values_to = "abundance") %>%
+  pivot_longer(-scientificName, names_to = "sample", values_to = "abundance") %>% 
   group_by(sample) %>%
   summarise(
     richness_detected = sum(abundance > 0),
@@ -75,7 +75,7 @@ samples_sf <- samples %>%
 # Make a plot
 ggplot(samples_sf) +
   geom_sf(data = ukraine_poly) +
-  geom_sf(aes(colour = richness_adj), size = 3) + 
+  geom_sf(aes(colour = richness_adj), alpha = 0.5, size = 3) + 
   scale_colour_viridis(option = "D", name = "Read Depth -\nAdjusted Richness") +
   theme_minimal() +
   labs(title = "Adjusted EcM Fungal Richness per Sample",
