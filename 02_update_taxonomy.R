@@ -57,6 +57,9 @@ sample_metrics <- sh_abundance %>%
     .groups = "drop"
   )
 
+ggplot(sample_metrics, aes(x = Read_depth, y = richness_detected)) +
+  geom_point() +
+  geom_abline(slope = model$coefficients[2], intercept = model$coefficients[1])
 # Fit linear model and compute residuals
 model <- lm(richness_detected ~ Read_depth, data = sample_metrics)
 sample_metrics$richness_adj <- resid(model)
