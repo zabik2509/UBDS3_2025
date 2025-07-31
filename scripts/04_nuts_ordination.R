@@ -24,6 +24,53 @@ env_data <- read_csv("./nuts/nuts_data_env.csv") %>%
 
 env_data
 
+# Basic stats for communities ####
+## Analysis of Similarities ####
+?vegan::anosim()
+
+str(env_data)
+spe.dist <- vegdist(data_spe)
+spe.ano <- with(env_data, anosim(spe.dist, price))
+summary(spe.ano)
+plot(spe.ano)
+
+
+
+## PERMANOVA ####
+# Read more: https://uw.pressbooks.pub/appliedmultivariatestatistics/chapter/permanova/
+?vegan::adonis2
+
+adonis2(
+  data_spe ~ energy,  # formula
+  data = env_data     # environmental data
+)
+
+
+
+# Distances and transformations ####
+
+## Dissimilarity ####
+#Jaccard
+d.jac <- vegdist(data_spe, method = "jaccard")
+d.jac
+
+#Bray
+d.bry <- vegdist(data_spe, method = "bray")
+d.bry
+
+#Horn-Morisita
+d.hor <- vegdist(data_spe, method = "horn")
+d.hor
+
+## Raw data transformations ####
+data_spe_log <- log1p(data_spe) # log transformation
+# log1p(x) is the same as log(x+1)
+head(data_spe_log)
+
+data_spe_sqrt <- sqrt(data_spe) # square root transformation
+head(data_spe_sqrt)
+
+
 ## NMDS (Non-metric Multi-Dimensional Scaling) ####
 set.seed(123)
 nmds.nuts <- metaMDS(data_spe,           # Our community-by-species matrix
@@ -54,10 +101,9 @@ fit <- envfit(nmds.nuts, envfit_vars, permutations = 999)
 plot(fit)
 
 # Step-by-step plotting
-ordiplot(nmds.nuts, type="n")                                      # coordinate plot
-orditorp(nmds.nuts, display="species",col="red", air=0.01)            # species with names
-orditorp(nmds.nuts, display="sites",cex=1,air=0.01)               # groups
-
+ordiplot(nmds.nuts, type="n")                                   # coordinate plot
+orditorp(nmds.nuts, display="species",col="red", air=0.01)      # species with names
+orditorp(nmds.nuts, display="sites",cex=1,air=0.01)             # groups
 
 # STEP 6: Plot with ggplot2
 library(ggplot2)

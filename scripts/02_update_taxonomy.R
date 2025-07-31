@@ -82,6 +82,15 @@ ggplot(samples_sf) +
        subtitle = "Residuals of linear model: richness ~ read depth",
        caption = "SH-based richness, UNITE v9.0")
 
+# Export {sf} data to either CVS or SHP format
+# To CSV. Convert sf object to data frame and drop geometry first
+st_drop_geometry(samples_sf) %>% 
+  write.csv("./data/samples_w_richness.csv", row.names = FALSE)
+
+# To ESRI Shapefile
+st_write(samples_sf, "./data/samples_w_richness.shp")
+
+
 # Make an interactive plot
 library(mapview)
 mapview(samples_sf, zcol = "richness_adj")

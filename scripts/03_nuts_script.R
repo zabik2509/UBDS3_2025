@@ -97,7 +97,8 @@ dat_landscapes_sort <- dat_landscapes_sort |>
   group_by(region) |> 
   mutate(rank = row_number())
 
-ggplot(dat_landscapes_sort, aes(x = rank, y = abundance, color = region, shape = region)) +
+ggplot(dat_landscapes_sort, 
+       aes(x = rank, y = abundance, color = region, shape = region)) +
   geom_line() +
   geom_point(size = 3) +
   scale_y_log10() +
@@ -133,7 +134,6 @@ richness_est <- cbind(rownames(chao1), chao1$Estimator) %>%
   mutate(richness = as.numeric(richness))
 
 richness_est
-
 
 
 # Incidence approach - sample coverage
